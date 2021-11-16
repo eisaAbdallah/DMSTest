@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:c="http://java.sun.com/jsf/core">
+
+
+
+    <h:head>
+        <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+        <title>Facelet Title</title>
+
+
+    </h:head>
+    <h:body>
+
+        <center>    <b:button onclick="$('.formValidationModalClass').modal('show')" value="Add Employee" look="success" icon="plus"/></center>
+        <b:modal title="Add Employee" id="df" styleClass="formValidationModalClass"
+                 closable="false"
+                 closeOnEscape="true">
+            <h:message for="df" style="color:red" />
+
+            <b:form>
+
+
+                <b:inputText value="#{employee.employeeCode}"
+                             label="Employee Code"
+                             required="true" 
+                             id="tr"
+                             requiredMessage="Please enter a number"
+                             large-screen="two-thirds"  validator="#{employee.validatesuccesOrfailure}"> 
+                    <f:param name="code" value="#{employee.employeeCode}"/>
+                </b:inputText>
+
+
+                <b:inputText value="#{employee.employeeName}"
+                             label="Employee Name"
+                             required="true"
+                             requiredMessage="Please enter a number"
+                             large-screen="two-thirds"/>
+                <b:inputText value="#{employee.employeeEmail}"
+                             label="Email"
+
+
+                             large-screen="two-thirds" > 
+
+                    <f:validator validatorId="Validator" />
+
+                </b:inputText> <b:inputText value="#{employee.employeeAddress}"
+                                            label="Employee Address"
+                                            required="true"
+                                            requiredMessage="Please enter a number"
+                                            large-screen="two-thirds"></b:inputText>
+
+
+                <b:row>
+                    <b:column>
+                        <b:button largeScreen="half"  value="Cancel"
+                                  dismiss="modal"  look="danger" onclick="return false;"/>
+                        <b:commandButton
+                            action="#{employee.add()}"
+                            value="Save"  
+                            look="success"
+                            icon="plus"
+                            update="@form"
+
+                            largeScreen="half"
+                            oncomplete="if(validationFailed) { $('.formValidationModalClass').modal('show') } "
+                            ></b:commandButton>
+                    </b:column>
+                </b:row>
+                <b:fetchBeanInfos />
+                <b:messages />
+            </b:form>
+
+        </b:modal>
+        <br/><br/><br/> 
+        <center>
+
+            <h:dataTable value="#{employee.getEmployees()}" var="employee" border="2"
+                         cellspacing="1" cellpadding="1">
+                <h:column>
+                    <c:facet name="header">Employee name</c:facet>
+                        #{employee.employeeName}
+                </h:column>
+                <h:column>
+                    <c:facet name="header">Employee  address</c:facet>
+                        #{employee.employeeAddress}
+                </h:column>
+                <h:column>
+                    <c:facet name="header">Employee Email</c:facet>
+                        #{employee.employeeEmail}
+                </h:column>
+                <h:column>
+                    <c:facet name="header">Employee Code</c:facet>
+                        #{employee.employeeCode}
+                    <f:param name="action" value="#{employee.employeeCode}" />
+                </h:column>
+                <h:column>
+                    <c:facet name = "header">Edit</c:facet>
+                    <h:form>
+                        <h:commandButton id = "submit" 
+                                        style="background-color: yellow;color:black" value = "edit" action = "#{employee.edit()}">
+                            <f:param name = "code" value = "#{employee.employeeCode}" />
+                        </h:commandButton>
+
+
+                        <br/>
+
+
+                    </h:form>
+                </h:column>
+
+
+
+            </h:dataTable>  
+        </center>
+    </h:body>
+</html>
+
