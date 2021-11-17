@@ -162,6 +162,11 @@ String EMAIL_REGEX = "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b";
             Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+        
+    //--------------------------------------Method For vaidity Of The filled Address Field---------------------------------------------------------------------
+  
+
       public void validateEmptyAddress(FacesContext context, UIComponent comp,
             Object value) throws ClassNotFoundException, SQLException {
 
@@ -180,6 +185,9 @@ String EMAIL_REGEX = "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b";
 
         
     }
+           
+    //--------------------------------------Method For vaidity Of The filled Name Field---------------------------------------------------------------------
+  
        public void validateEmptyName(FacesContext context, UIComponent comp,
             Object value) throws ClassNotFoundException, SQLException {
 
@@ -195,7 +203,9 @@ String EMAIL_REGEX = "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b";
 
         
     }
-      
+           
+    //--------------------------------------Method For vaidity Of The Email Pattern And @gmail.com As Example Field---------------------------------------------------------------------
+  
         public void validateEmailPattern(FacesContext context, UIComponent comp,
             Object value) throws ClassNotFoundException, SQLException {
 
