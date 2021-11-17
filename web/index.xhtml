@@ -33,9 +33,7 @@
 
                 <b:inputText value="#{employee.employeeCode}"
                              label="Employee Code"
-                             required="true" 
-                             id="tr"
-                             requiredMessage="Please enter a number"
+                             required="true"
                              large-screen="two-thirds"  validator="#{employee.validatesuccesOrfailure}"> 
                     <f:param name="code" value="#{employee.employeeCode}"/>
                 </b:inputText>
@@ -45,7 +43,6 @@
                              label="Employee Name"
                              required="true"
                               validator="#{employee.validateEmptyName}"
-                             requiredMessage="Please enter a number"
                              large-screen="two-thirds"/>
                 <b:inputText value="#{employee.employeeEmail}"
                              label="Email"
@@ -59,7 +56,6 @@
                                             label="Employee Address"
                                             required="true"
                                              validator="#{employee.validateEmptyAddress}"
-                                            requiredMessage="Please enter a number"
                                             large-screen="two-thirds"></b:inputText>
 
 
