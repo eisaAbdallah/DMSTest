@@ -204,7 +204,7 @@ String EMAIL_REGEX = "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b";
         
     }
            
-    //--------------------------------------Method For vaidity Of The Email Pattern And @gmail.com As Example Field---------------------------------------------------------------------
+    //--------------------------------------Method For vaidity Of The Email Pattern And @gmail.com As Example ---------------------------------------------------------------------
   
         public void validateEmailPattern(FacesContext context, UIComponent comp,
             Object value) throws ClassNotFoundException, SQLException {
