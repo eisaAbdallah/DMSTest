@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.faces.application.FacesMessage;
 
 import javax.faces.bean.ManagedBean;
@@ -42,7 +44,7 @@ DBCon connection=new DBCon();
     private String EmployeeAddress;
     private String EmployeeEmail;
 
-    private static final String EMAIL_REGEX = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+String EMAIL_REGEX = "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b";
 
     public Employee() {
         this.setEmployeeAddress(" ");
@@ -110,7 +112,7 @@ DBCon connection=new DBCon();
     //--------------------------------------Method For Add New Employee into the DataBase---------------------------------------------------------------------
   
 
-    public String add() throws ClassNotFoundException, SQLException {
+    public void add() throws ClassNotFoundException, SQLException {
        
        
         
@@ -131,7 +133,7 @@ DBCon connection=new DBCon();
         this.setEmployeeCode(" ");
         this.setEmployeeEmail(" ");
         this.setEmployeeName(" ");
-return "index.xhtml";
+
     }
 //************************************Method For Validation Of duplicated User And It`s Message**********************************
     public void validatesuccesOrfailure(FacesContext context, UIComponent comp,
@@ -159,6 +161,61 @@ return "index.xhtml";
         } catch (SQLException ex) {
             Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+      public void validateEmptyAddress(FacesContext context, UIComponent comp,
+            Object value) throws ClassNotFoundException, SQLException {
+
+       String mno = (String) value;
+       
+
+       if(mno.equals(" ")){
+            System.out.println("empty");
+         FacesMessage msg
+                            = new FacesMessage("Please Fill The Address", "This Field Is Required");
+                    msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+                    throw new ValidatorException(msg);
+       
+       }   
+         
+
+        
+    }
+       public void validateEmptyName(FacesContext context, UIComponent comp,
+            Object value) throws ClassNotFoundException, SQLException {
+
+       String mno = (String) value;
+      if(mno.equals(" ")){
+         FacesMessage msg
+                            = new FacesMessage("Please Fill The Name", "This Field Is Required");
+                    msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+                    throw new ValidatorException(msg);
+       
+       }   
+         
+
+        
+    }
+      
+        public void validateEmailPattern(FacesContext context, UIComponent comp,
+            Object value) throws ClassNotFoundException, SQLException {
+
+       String mno = (String) value;
+      Pattern pattern = Pattern.compile(EMAIL_REGEX);
+
+		
+		String emailField = (String) value;
+
+		
+		Matcher matcher = pattern.matcher(emailField);
+
+		if (!matcher.matches()) {
+			FacesMessage message = new FacesMessage();
+			message.setSummary("Email invalid");
+			message.setSeverity(FacesMessage.SEVERITY_ERROR);
+			throw new ValidatorException(message);
+		}
+
+        
     }
 //**********************************Built In method For Validate the Exsit Email*********************************************
     public void validate(FacesContext context, UIComponent component,

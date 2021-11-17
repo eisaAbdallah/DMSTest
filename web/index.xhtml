@@ -44,12 +44,13 @@
                 <b:inputText value="#{employee.employeeName}"
                              label="Employee Name"
                              required="true"
+                              validator="#{employee.validateEmptyName}"
                              requiredMessage="Please enter a number"
                              large-screen="two-thirds"/>
                 <b:inputText value="#{employee.employeeEmail}"
                              label="Email"
 
-
+ validator="#{employee.validateEmailPattern}"
                              large-screen="two-thirds" > 
 
                     <f:validator validatorId="Validator" />
@@ -57,6 +58,7 @@
                 </b:inputText> <b:inputText value="#{employee.employeeAddress}"
                                             label="Employee Address"
                                             required="true"
+                                             validator="#{employee.validateEmptyAddress}"
                                             requiredMessage="Please enter a number"
                                             large-screen="two-thirds"></b:inputText>
 
@@ -64,7 +66,7 @@
                 <b:row>
                     <b:column>
                         <b:button largeScreen="half"  value="Cancel"
-                                  dismiss="modal"  look="danger" onclick="return false;"/>
+                                  dismiss="modal"   look="danger" onclick="return false;"/>
                         <b:commandButton
                             action="#{employee.add()}"
                             value="Save"  
@@ -74,7 +76,7 @@
 
                             largeScreen="half"
                             oncomplete="if(validationFailed) { $('.formValidationModalClass').modal('show') } "
-                            ></b:commandButton>
+                            >  </b:commandButton>
                     </b:column>
                 </b:row>
                 <b:fetchBeanInfos />
@@ -85,7 +87,7 @@
         <br/><br/><br/> 
         <center>
 
-            <h:dataTable value="#{employee.getEmployees()}" var="employee" border="2"
+            <h:dataTable value="#{employee.getEmployees()}" id="tbl"  var="employee" border="2"
                          cellspacing="1" cellpadding="1">
                 <h:column>
                     <c:facet name="header">Employee name</c:facet>
